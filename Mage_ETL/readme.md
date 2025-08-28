@@ -142,10 +142,12 @@ _The changes that I have made to the data are to the best of my knowledge. But i
 
 After applying all transformations and cleaning, we load the new data into the Gold Layer. Here we create 'views' in BigQuery. A view encapsulates the results of a SQL query and displays them to the users. We will create the Fact and Dimension tables in the Gold Layer. Dimensions are the attributes of an entity. For instance, age, name, dob are attributes of customers. So we can add them to the dimension table of the customer. Whereas sale amount, sale qty, sale discount, shipping date, and order date are transactional values, which are facts. These values can be aggregated. This forms the fact table. These tables will be of high quality for analysis and other downstream tasks. 
 
+#### Gold Layer Quality
+![alt text](images/gold_layer.png)
 
+From the above, we can see that, 'Views' are created for all the dimension and fact tables in our warehouse.
 
 ### Star Schema:
-
 
 
 In the star schema, the fact table is in the middle and is connected with the dimensions through the foreign keys. Using these keys, we can access attributes from other dimensions and run analyses. For instance, in our schema, we can connect the product and customer table to find what is the revenue for a particular category of products and customers from a particular country. 
