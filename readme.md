@@ -17,8 +17,7 @@ We have requirements from the business stakeholders for data for analytics purpo
 
 The architecture of this project is provided below. We have used the _Medallion Architecture_. This is modern and robust, ensuring the overall quality and correctness of the expected Data product.  
 
-![alt text](images/overall_project_architecture.drawio.png)
-
+![alt text](Mage_ETL/images/overall_project_architecture.drawio.png)
 
 The source for this project will be CSV files from the CRM and ERP departments of the business. The requirement it to build a data warehouse for the stakeholders and other analysts to work with this data effectively.
 
@@ -50,7 +49,7 @@ This helps in achieveing an important concept, ___Separation of Concerns___ (SOC
 
 > This helps us visually understand how the pipeline is formed and chains all the components together. It helps to track and debug if the pipeline breaks.
 
-![alt text](images/Mage_Tree.png)
+![alt text](Mage_ETL/images/Mage_Tree.png)
 
 
 The blue block _'source_csv_loading'_ extracts the raw data from the source systems. The following yellow block _'bronze_layer_export'_ is the Bronze Layer where a data warehouse is created in BigQuery, and the raw data is loaded into it. 
@@ -87,7 +86,7 @@ Now we are in the silver layer. Here, we understand the data in detail. The tabl
 
 After analysing the tables, we can identify that some tables consist of customer informations, some have the product, and some have the sales information. Now, we can connect these tables with their respective groups.
 
-![alt text](images/data_integration_model.drawio.png)
+![alt text](Mage_ETL/images/data_integration_model.drawio.png)
 
 
 After this step, we move on to the important task in the silver layer. We focus on cleaning the data and applying transformations to enhance it to the best form for usage. In the ETL tree diagram, each block is connected to the bronze layer of the BigQuery data warehouse. This allows us to directly query the data and manipulate it using Mage. Before this process, we need to configure Mage with our GCP service account and update the io_config file. This establishes a connection between Mage and GCP. Additionally, we add an extra metadata column to the tables 'record_inserted_at', this records the time at which the data was last added to the silver layer from the bronze. 
@@ -105,34 +104,34 @@ _The changes that I have made to the data are to the best of my knowledge. But i
 3. Categorical columns that consisted of abbreviated forms were swapped with user-friendly language. For example, 'M' changed to 'Male' in gender.
 
 #### _crm_cust_info_ - Bronze Layer Quality
-![alt text](images/crm_cust_info_bronze.png)
+![alt text](Mage_ETL/images/crm_cust_info_bronze.png)
 
 #### _crm_cust_info_ - Silver Layer Quality
-![alt text](images/crm_cust_info_silver.png)
+![alt text](Mage_ETL/images/crm_cust_info_silver.png)
 
 4. the ID column 'erp_cust' had values like 'NASAW00011000', whereas the ID column in 'erp_loc' had the format 'AW-00011000'. Therefore, the data was transformed accordingly.
 
 #### _erp_cust_ - Bronze Layer Quality
-![alt text](images/erp_cust_bronze.png)
+![alt text](Mage_ETL/images/erp_cust_bronze.png)
 
 #### _erp_cust_ - Silver Layer Quality
-![alt text](images/erp_cust_silver.png)
+![alt text](Mage_ETL/images/erp_cust_silver.png)
 
 5. Some ID columns were fused, which were split and stored as separate columns with new names as shown below. 
 
 #### _crm_prd_info_ - Bronze Layer Quality
-![alt text](images/crm_prd_info_bronze.png)
+![alt text](Mage_ETL/images/crm_prd_info_bronze.png)
 
 #### _crm_prd_info_ - Silver Layer Quality
-![alt text](images/crm_prd_info_silver.png)
+![alt text](Mage_ETL/images/crm_prd_info_silver.png)
 
 5. Some date columns were stored as INT type '20101229', which was transformed to '2010-12-29'.
 
 #### _crm_sales_details_ - Bronze Layer quality
-![alt text](images/crm_sales_details_bronze.png)
+![alt text](Mage_ETL/images/crm_sales_details_bronze.png)
 
 #### _crm_sales_details_ - Silver Layer quality
-![alt text](images/crm_sales_details_silver.png)
+![alt text](Mage_ETL/images/crm_sales_details_silver.png)
 
 
 6. If values were missing, meaningful alternatives were assigned. For instance, if gender has null, is was assigned with 'n/a'. 
@@ -143,7 +142,7 @@ _The changes that I have made to the data are to the best of my knowledge. But i
 After applying all transformations and cleaning, we load the new data into the Gold Layer. Here we create 'views' in BigQuery. A view encapsulates the results of a SQL query and displays them to the users. We will create the Fact and Dimension tables in the Gold Layer. Dimensions are the attributes of an entity. For instance, age, name, dob are attributes of customers. So we can add them to the dimension table of the customer. Whereas sale amount, sale qty, sale discount, shipping date, and order date are transactional values, which are facts. These values can be aggregated. This forms the fact table. These tables will be of high quality for analysis and other downstream tasks. 
 
 #### Gold Layer Quality
-![alt text](images/gold_layer.png)
+![alt text](Mage_ETL/images/gold_layer.png)
 
 From the above, we can see that, 'Views' are created for all the dimension and fact tables in our warehouse.
 
@@ -153,7 +152,7 @@ From the above, we can see that, 'Views' are created for all the dimension and f
 In the star schema, the fact table is in the middle and is connected with the dimensions through the foreign keys. Using these keys, we can access attributes from other dimensions and run analyses. For instance, in our schema, we can connect the product and customer table to find what is the revenue for a particular category of products and customers from a particular country. 
 
 
-![alt text](images/star_schema.drawio.png)
+![alt text](Mage_ETL/images/star_schema.drawio.png)
 
 
 The start schema is the result of the Gold Layer for our users. We can use this data for any kind of analysis, such as dashboarding, ML model training, forecasting, or even as input for another ETL pipeline, which applies different transformations for a different use case.
@@ -164,7 +163,7 @@ Finally, we have the Data Flow chart, which captures the flow of the data betwee
 
 
 
-![alt text](images/Data_Flow.drawio.png)
+![alt text](Mage_ETL/images/Data_Flow.drawio.png)
 
 
 
