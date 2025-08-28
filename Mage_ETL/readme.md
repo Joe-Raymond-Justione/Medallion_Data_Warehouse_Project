@@ -17,14 +17,7 @@ We have requirements from the business stakeholders for data for analytics purpo
 
 The architecture of this project is provided below. We have used the _Medallion Architecture_. This is modern and robust, ensuring the overall quality and correctness of the expected Data product.  
 
-
-
-<p align="center">
-
-  <img src="overall_project_architecture.drawio.png" alt="My Plot" height=300 width="600"/>
-
-</p>
-
+![alt text](images/overall_project_architecture.drawio.png)
 
 
 The source for this project will be CSV files from the CRM and ERP departments of the business. The requirement it to build a data warehouse for the stakeholders and other analysts to work with this data effectively.
@@ -57,14 +50,7 @@ This helps in achieveing an important concept, ___Separation of Concerns___ (SOC
 
 > This helps us visually understand how the pipeline is formed and chains all the components together. It helps to track and debug if the pipeline breaks.
 
-
-
-<p align="center">
-
-  <img src="Mage_Tree.png" alt="My Plot" height=300 width="600"/>
-
-</p>
-
+![alt text](images/Mage_Tree.png)
 
 
 The blue block _'source_csv_loading'_ extracts the raw data from the source systems. The following yellow block _'bronze_layer_export'_ is the Bronze Layer where a data warehouse is created in BigQuery, and the raw data is loaded into it. 
@@ -101,14 +87,7 @@ Now we are in the silver layer. Here, we understand the data in detail. The tabl
 
 After analysing the tables, we can identify that some tables consist of customer informations, some have the product, and some have the sales information. Now, we can connect these tables with their respective groups.
 
-
-
-<p align="center">
-
-  <img src="data_integration_model.drawio.png" alt="My Plot" height=300 width="600"/>
-
-</p>
-
+![alt text](images/data_integration_model.drawio.png)
 
 
 After this step, we move on to the important task in the silver layer. We focus on cleaning the data and applying transformations to enhance it to the best form for usage. In the ETL tree diagram, each block is connected to the bronze layer of the BigQuery data warehouse. This allows us to directly query the data and manipulate it using Mage. Before this process, we need to configure Mage with our GCP service account and update the io_config file. This establishes a connection between Mage and GCP. 
@@ -144,13 +123,7 @@ After applying all transformations and cleaning, we load the new data into the G
 In the star schema, the fact table is in the middle and is connected with the dimensions through the foreign keys. Using these keys, we can access attributes from other dimensions and run analyses. For instance, in our schema, we can connect the product and customer table to find what is the revenue for a particular category of products and customers from a particular country. 
 
 
-
-<p align="center">
-
-  <img src="star_schema.drawio.png" alt="My Plot" height=300 width="600"/>
-
-</p>
-
+![alt text](images/star_schema.drawio.png)
 
 
 The start schema is the result of the Gold Layer for our users. We can use this data for any kind of analysis, such as dashboarding, ML model training, forecasting, or even as input for another ETL pipeline, which applies different transformations for a different use case.
@@ -161,11 +134,7 @@ Finally, we have the Data Flow chart, which captures the flow of the data betwee
 
 
 
-<p align="center">
-
-  <img src="Data_Flow.drawio.png" alt="My Plot" height=300 width="600"/>
-
-</p>
+![alt text](images/Data_Flow.drawio.png)
 
 
 
