@@ -1,0 +1,318 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - bronze_layer_export
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: source_CSV_Loading
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: source_csv_loading
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - silver_crm_sales_details
+  - silver_erp_loc
+  - silver_crm_cust_info
+  - silver_erp_cust
+  - silver_erp_px_cat
+  - silver_crm_prd_info
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: bronze_layer_export
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - source_csv_loading
+  uuid: bronze_layer_export
+- all_upstream_blocks_executed: true
+  color: grey
+  configuration:
+    data_provider: bigquery
+    data_provider_database: moonlit-grail-469521-n4.Bronze_Layer_DW
+    data_provider_profile: default
+    data_provider_schema: ''
+    dbt: {}
+    disable_query_preprocessing: false
+    export_write_policy: append
+    limit: 1000
+    use_raw_sql: true
+  downstream_blocks:
+  - gold_layer_customer_dim
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: silver_erp_loc
+  retry_config: null
+  status: executed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - bronze_layer_export
+  uuid: silver_erp_loc
+- all_upstream_blocks_executed: true
+  color: grey
+  configuration:
+    data_provider: bigquery
+    data_provider_database: moonlit-grail-469521-n4.Bronze_Layer_DW
+    data_provider_profile: default
+    data_provider_schema: ''
+    dbt: {}
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_path: custom/silver_crm_cust_info.sql
+    file_source:
+      path: custom/silver_crm_cust_info.sql
+    limit: 1000
+    use_raw_sql: true
+  downstream_blocks:
+  - gold_layer_customer_dim
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: silver_crm_cust_info
+  retry_config: null
+  status: executed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - bronze_layer_export
+  uuid: silver_crm_cust_info
+- all_upstream_blocks_executed: true
+  color: grey
+  configuration:
+    data_provider: bigquery
+    data_provider_database: moonlit-grail-469521-n4.Bronze_Layer_DW
+    data_provider_profile: default
+    data_provider_schema: ''
+    dbt: {}
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_path: custom/silver_erp_cust.sql
+    file_source:
+      path: custom/silver_erp_cust.sql
+    limit: 1000
+    use_raw_sql: true
+  downstream_blocks:
+  - gold_layer_customer_dim
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: silver_erp_cust
+  retry_config: null
+  status: executed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - bronze_layer_export
+  uuid: silver_erp_cust
+- all_upstream_blocks_executed: true
+  color: yellow
+  configuration:
+    data_provider: bigquery
+    data_provider_database: moonlit-grail-469521-n4.Bronze_Layer_DW
+    data_provider_profile: default
+    data_provider_schema: ''
+    dbt: {}
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_path: custom/gold_layer_customer_dim.sql
+    file_source:
+      path: custom/gold_layer_customer_dim.sql
+    limit: 1000
+    use_raw_sql: true
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: gold_layer_customer_dim
+  retry_config: null
+  status: executed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - silver_erp_loc
+  - silver_crm_cust_info
+  - silver_erp_cust
+  uuid: gold_layer_customer_dim
+- all_upstream_blocks_executed: true
+  color: grey
+  configuration:
+    data_provider: bigquery
+    data_provider_database: moonlit-grail-469521-n4.Bronze_Layer_DW
+    data_provider_profile: default
+    data_provider_schema: ''
+    dbt: {}
+    disable_query_preprocessing: false
+    export_write_policy: append
+    limit: 1000
+    use_raw_sql: true
+  downstream_blocks:
+  - gold_layer_product_dim
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: silver_erp_px_cat
+  retry_config: null
+  status: executed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - bronze_layer_export
+  uuid: silver_erp_px_cat
+- all_upstream_blocks_executed: true
+  color: grey
+  configuration:
+    data_provider: bigquery
+    data_provider_database: moonlit-grail-469521-n4.Bronze_Layer_DW
+    data_provider_profile: default
+    data_provider_schema: ''
+    dbt: {}
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_path: custom/silver_crm_prd_info.sql
+    file_source:
+      path: custom/silver_crm_prd_info.sql
+    limit: 1000
+    use_raw_sql: true
+  downstream_blocks:
+  - gold_layer_product_dim
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: silver_crm_prd_info
+  retry_config: null
+  status: updated
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - bronze_layer_export
+  uuid: silver_crm_prd_info
+- all_upstream_blocks_executed: false
+  color: yellow
+  configuration:
+    data_provider: bigquery
+    data_provider_database: moonlit-grail-469521-n4.Bronze_Layer_DW
+    data_provider_profile: default
+    data_provider_schema: ''
+    dbt: {}
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_path: custom/gold_layer_product_dim.sql
+    file_source:
+      path: custom/gold_layer_product_dim.sql
+    limit: 1000
+    use_raw_sql: true
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: gold_layer_product_dim
+  retry_config: null
+  status: executed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - silver_erp_px_cat
+  - silver_crm_prd_info
+  uuid: gold_layer_product_dim
+- all_upstream_blocks_executed: true
+  color: grey
+  configuration:
+    data_provider: bigquery
+    data_provider_database: moonlit-grail-469521-n4.Bronze_Layer_DW
+    data_provider_profile: default
+    data_provider_schema: ''
+    dbt: {}
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_path: custom/silver_crm_sales_details.sql
+    file_source:
+      path: custom/silver_crm_sales_details.sql
+    limit: 1000
+    use_raw_sql: true
+  downstream_blocks:
+  - gold_layer_sales_dim
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: silver_crm_sales_details
+  retry_config: null
+  status: updated
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - bronze_layer_export
+  uuid: silver_crm_sales_details
+- all_upstream_blocks_executed: false
+  color: yellow
+  configuration:
+    data_provider: bigquery
+    data_provider_database: moonlit-grail-469521-n4.Bronze_Layer_DW
+    data_provider_profile: default
+    data_provider_schema: ''
+    dbt: {}
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_path: custom/gold_layer_sales_dim.sql
+    file_source:
+      path: custom/gold_layer_sales_dim.sql
+    limit: 1000
+    use_raw_sql: true
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: gold_layer_sales_dim
+  retry_config: null
+  status: executed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - silver_crm_sales_details
+  uuid: gold_layer_sales_dim
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2025-08-25 13:34:37.670788+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: Data Warehousing Pipeline
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+uuid: data_warehousing_pipeline
+variables_dir: /Users/joeraymond/.mage_data/Mage_ETL
+widgets: []

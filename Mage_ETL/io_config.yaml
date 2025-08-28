@@ -1,0 +1,136 @@
+version: 0.1.1
+default:
+  # Default profile created for data IO access.
+  # Add your credentials for the source you use, and delete the rest.
+  # AWS
+  AWS_ACCESS_KEY_ID: "{{ env_var('AWS_ACCESS_KEY_ID') }}"
+  AWS_SECRET_ACCESS_KEY: "{{ env_var('AWS_SECRET_ACCESS_KEY') }}"
+  AWS_SESSION_TOKEN: session_token (Used to generate Redshift credentials)
+  AWS_REGION: region
+  # Algolia
+  ALGOLIA_APP_ID: app_id
+  ALGOLIA_API_KEY: api_key
+  ALGOLIA_INDEX_NAME: index_name
+  # Airtable
+  AIRTABLE_ACCESS_TOKEN: token
+  # Azure
+  AZURE_CLIENT_ID: "{{ env_var('AZURE_CLIENT_ID') }}"
+  AZURE_CLIENT_SECRET: "{{ env_var('AZURE_CLIENT_SECRET') }}"
+  AZURE_STORAGE_ACCOUNT_NAME: "{{ env_var('AZURE_STORAGE_ACCOUNT_NAME') }}"
+  AZURE_TENANT_ID: "{{ env_var('AZURE_TENANT_ID') }}"
+  # Chroma
+  CHROMA_COLLECTION: collection_name
+  CHROMA_PATH: path
+  # Clickhouse
+  CLICKHOUSE_DATABASE: default
+  CLICKHOUSE_HOST: host.docker.internal
+  CLICKHOUSE_INTERFACE: http
+  CLICKHOUSE_PASSWORD: null
+  CLICKHOUSE_PORT: 8123
+  CLICKHOUSE_USERNAME: null
+  # Druid
+  DRUID_HOST: hostname
+  DRUID_PASSWORD: password
+  DRUID_PATH: /druid/v2/sql/
+  DRUID_PORT: 8082
+  DRUID_SCHEME: http
+  DRUID_USER: user
+  # DuckDB
+  DUCKDB_DATABASE: database
+  DUCKDB_SCHEMA: main
+  # Google
+  GOOGLE_SERVICE_ACC_KEY:
+    type: service_account
+    project_id: moonlit-grail-469521-n4
+    private_key_id: db2657296f10e2b3c14dcf8bf70eb71142d665ef
+    private_key: "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCNAGws/XjPQvrO\ntxn6ySgcSGePm7kw0isjPBooq7i8O/wrl1bN3/jPq9B+DxnJ07fnKTLGvVVYNCcW\nhDc84MH/MyVAuI59Sq5dV0rcaC+EzPZcceXO8RYj9Dngm7uRRAuxqPEgpDvBcI4N\nUK4LiZ2uMJpiknoGIkF1k5WINuuYR2k17ZnONoSnZj08J1GMw5LmW4qatxY7v2NU\nq03f9YGHhT3P6dxXZTHWoZJsYRKItYgYYGgKEdxc1WsVkdWjPkY7ewH60z/0j8TV\nwB1ScMf2xLwxocgP/KR2Ku0LVMpqa9TZb/7pXdesz29fVzSZwDBpgJqSNm0qO0Eu\nagul+TbLAgMBAAECggEAL88kXs7lPzWhUCUikHfTe1+LidSN4wFoMg7HeeHcBis6\nslcizjSyq0vBKnUZU+dPVHiSKHP7M6ifVlGnXyOAc/UWHQ9W9SG05J5cGkbTUe6j\nXC4cc2IolTFSzJdRboyJgIhdlilJv6nX6KjiErRrPCxrtJ+g82J7GpBbo++nS57u\nLFuAxLrlIvRPP5lLDXJJ0C/OGwk1qo7Ad1SiBqyLmi2JBGfrDAGcZRDbFf4eS0pm\nhyLiQvzqsSaCV7POMRbdGoOZatZIKEllWJ74qbRB7f39CAbYwI0kURADq5YMx0NM\nQF9pseuhVRIMtsq2b2aV9HZr7G9rfnp+d/ogQXBAyQKBgQDCUmnvBgsdK3LXYYQg\nDG5yHsVy6ABODS5yCq+wIR96I1nJ9FB8SEkEJY7mM2XIc3wEuhz4iazVcLwB7IBY\nyifZqOPqi71WH9bzjWvd7OD5yBwXLZdK1D11DoxX1RVRYTwMjB49jfliyzx6KUoR\njLjZ/GcB7fN4DD2lXhhfVtNb2QKBgQC5wXsp46fAPSdhl7Km5xWnTyC+H44LKITY\nitL8SKu2G1GuQVkKTV7ABvdJfSyR+4ycmPANYNOmPJtpm3bDt3/SYSvU9kxFuPCg\nXeiqyCjnZEgC7Id/058Col0iB7EKziq5jdHuIgLtjIskzbq6o/N6Z1vGv3IYCtaS\njTwcKl51QwKBgEBCUJWiQfqba5adwLt4YO2MD284GSG2ai18KyzrRyV0mzSVfigb\nH0onwWGOjZID3ncRtJLbtDPA2+sm8ipqb1Mi7nuZSjs4vDQ+B/WTZ7Ix4lgn02gD\nV29mKDLDXBFVPi5IB5gDYvywiIc9MCkth9NODCIvNdv08E3HF/gvFiXBAoGAKS+o\nIlKSyEIG8FGVUAJev7kAtocClKDIS8cEHuHyCK+n/a4Jkwoynvssa0Pw1PFkbPhQ\nCXdVlj9L6i+JNr4B/mCDOnXd1Xu7BqOryeoVf7CxcsyFAqemUwwzAC+aZp3txTSX\nvmgWJBuMYn2nEGj3vEUciUW7g28rwlTEZi5SwUcCgYBuUzPJodRbI6O9yPogltzk\nxbyTnnjEU1v9X0tk5UdygnTiZy6FrS3ihgErzuJdLLo1COP24fBm1T9vrstmK9iw\nXJOIXGdFLxvIF6j6mCttTcy5fxxt/e2Ujx9TGV2CTeqQuQvDRPFOgYauLGyzFvJ8\nqZ3Z2HOtxEpyr6KzGOWoNg==\n-----END PRIVATE KEY-----\n"
+    client_email: de-project@moonlit-grail-469521-n4.iam.gserviceaccount.com
+    auth_uri: "https://accounts.google.com/o/oauth2/auth"
+    token_uri: "https://oauth2.googleapis.com/token"
+    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs"
+    client_x509_cert_url: "https://www.googleapis.com/robot/v1/metadata/x509/de-project%40moonlit-grail-469521-n4.iam.gserviceaccount.com"
+  GOOGLE_SERVICE_ACC_KEY_FILEPATH: "/path/to/your/service/account/key.json"
+  GOOGLE_LOCATION: US # Optional
+  # MongoDB
+  # Specify either the connection string or the (host, password, user, port) to connect to MongoDB.
+  MONGODB_CONNECTION_STRING: "mongodb://{username}:{password}@{host}:{port}/"
+  MONGODB_HOST: host
+  MONGODB_PORT: 27017
+  MONGODB_USER: user
+  MONGODB_PASSWORD: password
+  MONGODB_DATABASE: database
+  MONGODB_COLLECTION: collection
+  # MSSQL
+  MSSQL_DATABASE: database
+  MSSQL_SCHEMA: schema
+  MSSQL_DRIVER: "ODBC Driver 18 for SQL Server"
+  MSSQL_HOST: host
+  MSSQL_PASSWORD: password
+  MSSQL_PORT: 1433
+  MSSQL_USER: SA
+  # MySQL
+  MYSQL_DATABASE: database
+  MYSQL_HOST: host
+  MYSQL_PASSWORD: password
+  MYSQL_PORT: 3306
+  MYSQL_USER: root
+  # Pinot
+  PINOT_HOST: hostname
+  PINOT_PASSWORD: password
+  PINOT_PATH: /query/sql
+  PINOT_PORT: 8000
+  PINOT_SCHEME: http
+  PINOT_USER: user
+  # PostgresSQL
+  POSTGRES_CONNECT_TIMEOUT: 10
+  POSTGRES_DBNAME: postgres
+  POSTGRES_SCHEMA: public # Optional
+  POSTGRES_USER: username
+  POSTGRES_PASSWORD: password
+  POSTGRES_HOST: hostname
+  POSTGRES_PORT: 5432
+  # Qdrant
+  QDRANT_COLLECTION: collection
+  QDRANT_PATH: path
+  # Redshift
+  REDSHIFT_SCHEMA: public # Optional
+  REDSHIFT_DBNAME: redshift_db_name
+  REDSHIFT_HOST: redshift_cluster_id.identifier.region.redshift.amazonaws.com
+  REDSHIFT_PORT: 5439
+  REDSHIFT_TEMP_CRED_USER: temp_username
+  REDSHIFT_TEMP_CRED_PASSWORD: temp_password
+  REDSHIFT_DBUSER: redshift_db_user
+  REDSHIFT_CLUSTER_ID: redshift_cluster_id
+  REDSHIFT_IAM_PROFILE: default
+  # Snowflake
+  SNOWFLAKE_USER: username
+  SNOWFLAKE_PASSWORD: password
+  SNOWFLAKE_ACCOUNT: account_id.region
+  SNOWFLAKE_DEFAULT_WH: null                  # Optional default warehouse
+  SNOWFLAKE_DEFAULT_DB: null                  # Optional default database
+  SNOWFLAKE_DEFAULT_SCHEMA: null              # Optional default schema
+  SNOWFLAKE_PRIVATE_KEY_PASSPHRASE: null      # Optional private key passphrase
+  SNOWFLAKE_PRIVATE_KEY_PATH: null            # Optional private key path
+  SNOWFLAKE_ROLE: null                        # Optional role name
+  SNOWFLAKE_TIMEOUT: null                     # Optional timeout in seconds
+  # Trino
+  trino:
+    catalog: postgresql                       # Change this to the catalog of your choice
+    host: 127.0.0.1
+    http_headers:
+      X-Something: 'mage=power'
+    http_scheme: http
+    password: mage1337                        # Optional
+    port: 8080
+    schema: core_data
+    session_properties:                       # Optional
+      acc01.optimize_locality_enabled: false
+      optimize_hash_generation: true
+    source: trino-cli                         # Optional
+    user: admin
+    verify: /path/to/your/ca.crt              # Optional
+  # Weaviate
+  WEAVIATE_ENDPOINT: https://some-endpoint.weaviate.network
+  WEAVIATE_INSTANCE_API_KEY: YOUR-WEAVIATE-API-KEY
+  WEAVIATE_INFERENCE_API_KEY: YOUR-OPENAI-API-KEY
+  WEAVIATE_COLLECTION: collectionn_name
