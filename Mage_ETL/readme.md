@@ -90,11 +90,13 @@ After analysing the tables, we can identify that some tables consist of customer
 ![alt text](images/data_integration_model.drawio.png)
 
 
-After this step, we move on to the important task in the silver layer. We focus on cleaning the data and applying transformations to enhance it to the best form for usage. In the ETL tree diagram, each block is connected to the bronze layer of the BigQuery data warehouse. This allows us to directly query the data and manipulate it using Mage. Before this process, we need to configure Mage with our GCP service account and update the io_config file. This establishes a connection between Mage and GCP. 
+After this step, we move on to the important task in the silver layer. We focus on cleaning the data and applying transformations to enhance it to the best form for usage. In the ETL tree diagram, each block is connected to the bronze layer of the BigQuery data warehouse. This allows us to directly query the data and manipulate it using Mage. Before this process, we need to configure Mage with our GCP service account and update the io_config file. This establishes a connection between Mage and GCP. Additionally, we add an extra metadata column to the tables 'record_inserted_at', this records the time at which the data was last added to the silver layer from the bronze. 
 
 
 
-> Some of the most common quality issues encountered were:
+### Most common quality issues encountered were:
+
+_The changes that I have made to the data are to the best of my knowledge. But in real work, we should always reach out to the source system domain experts in the company to understand the discripancies and resolve them with their advice._
 
 1. Null values in the primary keys of the tables.
 
@@ -102,14 +104,40 @@ After this step, we move on to the important task in the silver layer. We focus 
 
 3. Categorical columns that consisted of abbreviated forms were swapped with user-friendly language. For example, 'M' changed to 'Male' in gender.
 
-4. Some ID columns were fused, which were split and stored as separate columns. For example, the column 'erp_cust' had values like 'NASAW00011000', whereas the ID column in 'erp_loc' had the format 'AW-00011000'. Therefore, the data was cleaned accordingly.
+#### _crm_cust_info_ - Bronze Layer Quality
+![alt text](images/crm_cust_info_bronze.png)
+
+#### _crm_cust_info_ - Silver Layer Quality
+![alt text](images/crm_cust_info_silver.png)
+
+4. the ID column 'erp_cust' had values like 'NASAW00011000', whereas the ID column in 'erp_loc' had the format 'AW-00011000'. Therefore, the data was transformed accordingly.
+
+#### _erp_cust_ - Bronze Layer Quality
+![alt text](images/erp_cust_bronze.png)
+
+#### _erp_cust_ - Silver Layer Quality
+![alt text](images/erp_cust_silver.png)
+
+5. Some ID columns were fused, which were split and stored as separate columns with new names as shown below. 
+
+#### _crm_prd_info_ - Bronze Layer Quality
+![alt text](images/crm_prd_info_bronze.png)
+
+#### _crm_prd_info_ - Silver Layer Quality
+![alt text](images/crm_prd_info_silver.png)
 
 5. Some date columns were stored as INT type '20101229', which was transformed to '2010-12-29'.
+
+#### _crm_sales_details_ - Bronze Layer quality
+![alt text](images/crm_sales_details_bronze.png)
+
+#### _crm_sales_details_ - Silver Layer quality
+![alt text](images/crm_sales_details_silver.png)
+
 
 6. If values were missing, meaningful alternatives were assigned. For instance, if gender has null, is was assigned with 'n/a'. 
 
 7. Technical column names were changed to simple names for ease of understanding.
-
 
 
 After applying all transformations and cleaning, we load the new data into the Gold Layer. Here we create 'views' in BigQuery. A view encapsulates the results of a SQL query and displays them to the users. We will create the Fact and Dimension tables in the Gold Layer. Dimensions are the attributes of an entity. For instance, age, name, dob are attributes of customers. So we can add them to the dimension table of the customer. Whereas sale amount, sale qty, sale discount, shipping date, and order date are transactional values, which are facts. These values can be aggregated. This forms the fact table. These tables will be of high quality for analysis and other downstream tasks. 
